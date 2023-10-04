@@ -22,9 +22,11 @@ function filtrarProductos(){
     let palabraClave = prompt("ingresa el producto que deseas buscar: \nREMERA \nPANTALON \nBUZO \nCAMISA \nCARRITO").trim().toUpperCase()
     let resultado = lista.filter((producto)=> producto.nombre.toUpperCase().includes(palabraClave))
 
-    if (resultado.length > 0){
+    if (resultado.length > 0 || palabraClave =="CARRITO" ){
         console.table(resultado)
         alert("Tenemos el producto que buscas!")
+    }else{
+        alert("no tenemos ese producto, intentá de nuevo")
     }
  // BUCLE QUE ME REPITE LA OPCION HASTA QUE ELIJO CARRITO Y SALE
 while(palabraClave!="CARRITO"){
