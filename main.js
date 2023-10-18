@@ -1,6 +1,6 @@
 
 
-// menu interactivo
+
 
 const Producto = function(nombre,precio,stock){
     this.nombre= nombre,
@@ -8,71 +8,135 @@ const Producto = function(nombre,precio,stock){
     this. stock = stock
 }
 
-let producto1= new Producto ("Remera", 10000, 20)
-let producto2= new Producto ("Pantalon", 45500, 26)
-let producto3= new Producto ("Buzo", 35000, 45)
-let producto4= new Producto ("Camisa", 40000, 23)
+let producto1= new Producto ("Remera Blanca", 10000, 20)
+let producto2= new Producto ("Pantalon Chino", 45500, 26)
+let producto3= new Producto ("Buzo Capucha canguro", 35000, 45)
+let producto4= new Producto ("Camisa leñadora", 40000, 23)
 
 //LISTA DE PRODUCTOS DISPONIBLES
 let lista = [producto1,producto2,producto3,producto4]
 
 
-//FUNCION QUE FILTRA LOS PRODUCTOS Y MUESTRA EL PRECIO Y EL STOCK
-function filtrarProductos(){
-    let palabraClave = prompt("ingresa el producto que deseas buscar: \nREMERA \nPANTALON \nBUZO \nCAMISA \nCARRITO").trim().toUpperCase()
-    let resultado = lista.filter((producto)=> producto.nombre.toUpperCase().includes(palabraClave))
+ 
+const busqueda = document.getElementById("busqueda");
+   busqueda.addEventListener("click", () => {filtrarProductos();});
 
-    if (resultado.length > 0 || palabraClave =="CARRITO" ){
-        console.table(resultado)
-        alert("Tenemos el producto que buscas!")
-    }else{
-        alert("no tenemos ese producto, intentá de nuevo")
+function filtrarProductos() {  
+    
+    
+    const main = document.querySelector('main');
+  
+    const input = document.getElementById('filtrarProducto').value  //traigo el valor del imput
+  
+    const palabraClave = input.trim().toUpperCase();
+  
+    const resultado = lista.filter((producto) => producto.nombre.toUpperCase().includes(palabraClave));
+  
+    if (resultado.length > 0) {  //si hay algun resultado, creo el container
+      
+        const container = document.createElement('div');
+      container.classList.add('card-container');
+  
+      resultado.forEach((producto) => { //recorro el producto y creo el div,p,h2,etc...
+        const card = document.createElement('div');
+        card.classList.add('card');
+  
+        const nombre = document.createElement('p');
+        nombre.textContent = producto.nombre;
+        card.appendChild(nombre);
+  
+        const precio = document.createElement('p');
+        precio.textContent = `Precio: $${producto.precio}`;
+        card.appendChild(precio);
+  
+   
+        container.appendChild(card);
+      });
+  
+      main.appendChild(container);  //agrego el container como hijo del body
+    } else {
+      alert('No se encontraron coincidencias');
     }
- // BUCLE QUE ME REPITE LA OPCION HASTA QUE ELIJO CARRITO Y SALE
-while(palabraClave!="CARRITO"){
-    filtrarProductos()
-    break
-}
-}      
-filtrarProductos()
+  } 
+
+
+
+
 
 //DECLARO UN ARRAY VACIO
 let carrito =[];
 
-//FUNCION QUE BUSCA UN NOMBRE CON UN PROMPT Y LUEGO CON LA VARIABLES AGREGAR PRODUCTO LO FILTRA SI ESTA EN LA LISTA
-function agregarProducto(){
-    let nombre = prompt ("Te gusto el producto? ingresa el nombre del producto para agregarlo al carrito").trim().toUpperCase()
- 
-    let agregarProducto = lista.filter((producto)=> producto.nombre.toUpperCase().includes(nombre))
+//DECLARO UN CONTADOR EN 0 PARA QUE SE CUENTEN LOS PRODUCTOS EN EL ICONO CARRITO
 
-    // SI EL PRODUCTO ESTA EN LA LISTA LO PUSHEA A CARRITO
-    if(agregarProducto.length > 0){
-        alert("producto agregado con exito!")
-    carrito.push(nombre)
+let contador = 0;
+
+ function agregarProducto(producto, precio){
+
+    carrito.push({ nombre : producto, precio: precio });
     console.table(carrito)
+   
+
+    if (carrito.length >0){
+        contador++
+        document.querySelector(".contador").textContent = contador;
     }
-  
-}
+    actualizarCarrito()
 
-//FUNCION QUE OFRECE AGREGAR UN PRODUCTO MAS SI SE VIO
-function ofrecerMasProductos(){
-    let nombre = prompt ("Queres agregar mas productos?  " ).trim().toUpperCase()
-    let agregarProducto = lista.filter((producto)=> producto.nombre.toUpperCase().includes(nombre))
-    if (agregarProducto.length > 0){
-        alert("producto agregado con exito!")
-        carrito.push(nombre)
-        console.table(carrito)
-        }
+    // Función para sumar los productos
+function actualizarCarrito() {
+  const carritoElement = document.getElementById("carrito");
+  const totalElement = document.getElementById("total");
 
-    if(agregarProducto.length>0){
-        alert("Gracias por tu compra!")
-    }
-}
-
-
-agregarProducto()
-ofrecerMasProductos()
  
+  carritoElement.innerHTML = "";
+
+  let total = 0;
+
+  // Recorre el carrito y muestra los productos
+  carrito.forEach(producto => {
+      const li = document.createElement("li");
+      li.textContent = `${producto.nombre} - $${producto.precio}`;
+      carritoElement.appendChild(li);
+      total = producto.precio + total;
+  });
+
+  // Actualiza el precio total
+  totalElement.textContent = total;
+}
+
+    
+
+//FUNCION QUE GUARDA EN LOCAL STORAGE LOS PRODUCTOS
+const guardarCarrito = () => {
+    localStorage.setItem("carritoData", JSON.stringify(carrito));
+    alert("Carrito guardado en el LocalStorage.");
+};
+
+const cargarCarrito = () => {
+    if (localStorage.carritoData) {
+        carrito = JSON.parse(localStorage.carritoData);
+        
+    }
+};
+
+window.addEventListener("load", cargarCarrito);
+guardarCarrito()
+
+
+const carritoStorage = JSON.parse(localStorage.getItem("carritoData"))
+
+
+const guardado = document.getElementById("botonStorage")
+guardado.addEventListener("click", function mostrarCarrito(){
+  if(carritoStorage){
+    console.log(carritoStorage)
+  }
+
+  
+
+})
+
+}
 
 
 
