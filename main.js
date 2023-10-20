@@ -31,7 +31,7 @@ function filtrarProductos() {
   if (resultado.length > 0) {  
     
       const container = document.createElement('div');
-    container.classList.add('card-container');
+    container.classList.add('h2');
 
     resultado.forEach((producto) => { 
       const card = document.createElement('div');
@@ -51,7 +51,12 @@ function filtrarProductos() {
 
     main.appendChild(container);  
   } else {
-    alert('No se encontraron coincidencias');
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'No se encontraron productos con ese nombre!',
+      
+    })
   }
 } 
 
@@ -105,7 +110,12 @@ totalElemento.textContent = total;
 
 const guardarCarrito = () => {
   localStorage.setItem("carritoData", JSON.stringify(carrito));
-  alert("Carrito guardado en el LocalStorage.");
+  Swal.fire({
+    icon: 'success',
+    title: 'Yep!',
+    text: 'Producto agregado al localStorage!',
+    
+  })
 };
 
 const cargarCarrito = () => {
