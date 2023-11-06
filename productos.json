@@ -1,0 +1,34 @@
+
+{
+    "productos":
+[
+    {
+        "nombre" : "Remera Blanca" ,
+        "precio" : 10000,
+        "image" : "./assets/remera-1.jpg"
+
+    },
+    {
+        "nombre" : "Pantalon Chino" ,
+        "precio" : 45500,
+        "image" : "./assets/FB_IMG_1688823557613.jpg"
+    },
+
+    {
+        "nombre" : "Buzo Capucha canguro" ,
+        "precio" : 35000,
+        "image" : "./assets/buzo-1.jpg"
+    },
+
+    {
+        "nombre" : "Camisa Leñadora" ,
+        "precio" : 40000,
+        "image" : "./assets/camisa-1.jpg"
+    }
+
+
+
+]
+}
+
+

@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="
+https://cdn.jsdelivr.net/npm/luxon@3.4.3/build/global/luxon.min.js
+"></script>
 
     <!--SEO-->
   <!--Description-->
@@ -22,12 +25,13 @@
     <header>
       <nav class="navbar navbar-expand-lg  bg-black">
         <div class="container-fluid">
-          <!-- <a class="navbar-brand" href="../index.html"> -->
+          <a class="navbar-brand" href="../index.html">
             <img class="logo" src="./assets/logo.jpg" alt="logo">
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
+          
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <!-- <li class="nav-item">
@@ -38,24 +42,17 @@
               </li> -->
               <div class="nav-item-carrito">
               <li class="nav-item carrito">
-                <a id="carritoLogo" class="nav-link active text-white" aria-current="page" href="../paginas/carrito.html">
+                <a id="carritoLogo" class="nav-link active text-white" aria-current="page" href="./carrito.html">
                   <i class="fa-solid fa-cart-shopping"></i>
                   <span class="contador ml-10">0</span>
                 </a>
               </li>
             </div>
-              <!-- <li class="nav-item">
-                <a class="nav-link active text-white" aria-current="page" href="../paginas/login.html">
-                  <i class="fa-solid fa-circle-user"></i>
-                </a>
-              </li> -->
         
             </ul>
+            
 
-<!--             
-            <input type="text" id="filtrarProducto">
-            <button id="busqueda">Filtrar productos</button> -->
-             
+
             
               <input id="filtrarProducto" class="form-control me-2 fuente-principal" type="search" placeholder="Buscar" aria-label="Search">
               <button id="busqueda" class="btn btn-outline-info fuente-principal">Buscar</button>
@@ -68,58 +65,31 @@
     
   </header>
   <body>
-
+    <p id="fecha">Fecha: </p>  
    
  <main>
   <h1 class="fuente-principal detalle-producto">PRODUCTOS</h1>
 
 </main>
     
-      <div class="container text-center ms-15 mb-5">
-        <div class="row">
-          <div class="col-sm-12 col-md-4 col-lg-4">
-      <div class="grid-container">
-        <div>
-          <img id="producto1" class="foto-grid " src="./assets/remera-1.jpg" alt="foto-prendas">
-          <p class="descripcion-productos-grid">Remera blanca, S/xxl $10.000</p>
-          <button id="boton" type="button" onclick="agregarProducto('Remera Blanca', 10000)" class="checkout ">Add Carrito</button>
-        </div>
-        <div>
-          <img id="producto2" class="foto-grid" src="./assets/FB_IMG_1688823557613.jpg" alt="foto-prendas">
-          <p class="descripcion-productos-grid">Pantalon chino, S/xxl $45.500</p>
-          <button id="boton" type="button" onclick="agregarProducto('Pantalon', 45500)" class="checkout ">Add Carrito</button>
-        </div>
-        <div>
-          <img class="foto-grid" src="./assets/buzo-1.jpg" alt="foto-prendas">
-          <p class="descripcion-productos-grid">Buzo capucha canguro, S/XXL $35000</p>
-        
-         <button id="boton" type="button" onclick="agregarProducto('Buzo', 35000)" class="checkout ">Add Carrito</button>
-        </div>
-         <div>
-          <img class="foto-grid" src="./assets/camisa-1.jpg" alt="foto-prendas">
-          <p class="descripcion-productos-grid">Camisa Leñadora, S/XXL $35000</p>
-          <button id="boton" type="button" onclick="agregarProducto('Camisa', 40000)" class="checkout ">Add Carrito</button>
-        </div>
-   
-       
+     
+      
+    
+<div class="container-fluid" id="productos-container">
+  <button id="boton" type="button" onclick="agregarProducto('Remera Blanca', 10000)" class="checkout ">Add Carrito</button>
+   <button id="boton" type="button" onclick="agregarProducto('Pantalon Chino', 45500)" class="checkout ">Add Carrito</button>
+  <button id="boton" type="button" onclick="agregarProducto('Buzo capucha canguro', 35000)" class="checkout ">Add Carrito</button>
+  <button id="boton" type="button" onclick="agregarProducto('Camisa leñadora', 40000)" class="checkout ">Add Carrito</button>
+</div>
 
-
-            <!-- <div class="botones mb-5 ms-15">
-             
-              <button style="background-color: brown;"  id="boton2 " type="button" onclick="guardarCarrito()" class="checkout">Save Carrito</button> -->
-            <!-- </div>  -->
-
-          </div>
-          </div>
-        </div>
-      </div>  
+<div clas="container-fluid">
       <h2 class="h2-carrito">Carrito de Compras</h2>
       <ul class="=h2-carrito" id="carrito">
     
       </ul>
       <p>Total: $<span id="total">0</span></p>
       <button style= "background-color: brown;"  id="botonStorage" type="button"  class="checkout ">Mostrar carrito storage</button>
-   
+</div>
     <footer>
       <br>
       <div class="footer-text fuente-principal">

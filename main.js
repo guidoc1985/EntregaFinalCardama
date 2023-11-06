@@ -1,3 +1,5 @@
+
+
 const Producto = function(nombre,precio,stock){
   this.nombre= nombre,
   this.precio = precio
@@ -80,8 +82,21 @@ function agregarProducto(producto, precio){
   if (carrito.length >0){
       contador++
       document.querySelector(".contador").textContent = contador;
+      
+      
   }
   actualizarCarrito()
+  
+
+  function eliminarProducto (index){
+    carrito.splice(index, 1)
+    console.table(carrito)
+    if (carrito.length>=0){
+      contador--
+      document.querySelector(".contador").textContent = contador;
+    }
+    actualizarCarrito()
+  }
 
   
 function actualizarCarrito() {
@@ -89,19 +104,32 @@ const carritoElemento = document.getElementById("carrito");
 const totalElemento = document.getElementById("total");
 
 
+
 carritoElemento.innerHTML = "";
 
 let total = 0;
 
 
-carrito.forEach(producto => {
+carrito.forEach((producto, index) => {
     const li = document.createElement("li");
+    li.style.margin= "10px"
+    li.style.fontFamily="fuente-principal"
     li.textContent = `${producto.nombre} - $${producto.precio}`;
+    const eliminarBoton = document.createElement("button");
+    eliminarBoton.style.fontFamily ="fuente-principal"
+    eliminarBoton.style.background= "grey"
+    eliminarBoton.style.padding= "5px"
+    eliminarBoton.style.marginLeft= "20px"
+    eliminarBoton.textContent = "Eliminar";
+    eliminarBoton.onclick = () => eliminarProducto(index);
+    li.appendChild(eliminarBoton);
     carritoElemento.appendChild(li);
     total = producto.precio + total;
+   
+    
 });
 
-// Actualiza el precio total
+
 totalElemento.textContent = total;
 }
 
@@ -120,6 +148,7 @@ const guardarCarrito = () => {
 
 const cargarCarrito = () => {
   if (localStorage.carritoData) {
+    
       carrito = JSON.parse(localStorage.carritoData);
       
   }
@@ -140,13 +169,64 @@ if(carritoStorage){
 
 
 
+
 })
+
+
 
 }
 
 
 
+
+const now = luxon.DateTime.now()
+console.log( now.toLocaleString() )
+const fehca = document.getElementById("fecha");
+fecha.textContent = now.toLocaleString();
   
 
 
-    
+
+fetch("productos.json")
+.then(respuesta => respuesta.json())
+
+.then( data=> {
+
+
+  const productos = data.productos
+
+  const productosContainer = document.getElementById("productos-container")
+  productosContainer.className=("producto-estilos")
+
+  productos.forEach( producto =>{
+    const productoElemento = document.createElement("div");
+
+    const imagenElement = document.createElement("img");
+    imagenElement.src = producto.image;
+    imagenElement.className=("foto-grid")
+
+      const nombreElement = document.createElement("p")
+      nombreElement.textContent = `Nombre: ${producto.nombre} `
+
+      const precioElement = document.createElement("p")
+      
+     precioElement.textContent= ` Precio:$ ${producto.precio}`
+      
+
+     const buttonElemento = document.getElementById("boton")
+     buttonElemento.addEventListener("click", function agregarProducto(){
+
+     })
+
+
+      
+      productoElemento.appendChild(imagenElement)
+      productoElemento.appendChild(nombreElement)
+      productoElemento.appendChild(precioElement)
+     productoElemento.append(buttonElemento)
+     
+      productosContainer.append(productoElemento)
+  })
+
+})
+
